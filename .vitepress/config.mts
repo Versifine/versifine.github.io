@@ -140,9 +140,14 @@ try {
 export default defineConfig({
   title: "VerSite",
   description: "Versifine的学习路径与知识库",
-  base: process.env.GITHUB_REPOSITORY
-    ? `/${process.env.GITHUB_REPOSITORY.split('/')[1]}/`
-    : '/',
+  base: (() => {
+    const repo = process.env.GITHUB_REPOSITORY?.split('/')[1]
+    if (!repo) return '/'
+    // User/Org pages repo: <name>.github.io should be served at root.
+    if (repo.toLowerCase().endsWith('.github.io')) return '/'
+    // Project pages: served under /<repo>/
+    return `/${repo}/`
+  })(),
   appearance: 'force-dark', // 强制开启深色模式
   head: [
     ['link', { rel: 'icon', type: 'image/jpeg', href: '/logo.jpg' }],
