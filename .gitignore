@@ -1,0 +1,16 @@
+node_modules/
+.vitepress/dist/
+.vitepress/cache/
+
+# If you keep the legacy docs folder, avoid committing its build artifacts
+/docs/.vitepress/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db

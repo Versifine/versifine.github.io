@@ -1,0 +1,647 @@
+/* .vitepress/theme/style.css */
+
+:root {
+  /* 品牌主色调 - 孤独摇滚波奇虹夏主题 */
+  --vp-c-brand-1: #fa7298;
+  --vp-c-brand-2: #e06688;
+  --vp-c-brand-3: #c75a78;
+  --vp-c-brand-soft: rgba(250, 114, 152, 0.14);
+
+  /* 浅色模式背景 - 设为透明，让视频透出来 */
+  --vp-c-bg: transparent;
+  --vp-c-bg-alt: rgba(255, 255, 255, 0.8);
+  --vp-c-bg-soft: rgba(255, 240, 243, 0.8);
+
+  /* 首页 Hero 样式变量 */
+  --vp-home-hero-name-color: #fa7298;
+  --vp-home-hero-name-background: transparent;
+  
+  /* 按钮颜色 - 扁平化风格 */
+  /* Brand 按钮 (波奇) */
+  --vp-button-brand-bg: #fa7298;
+  --vp-button-brand-hover-bg: #e06688;
+  --vp-button-brand-text: #fff;
+  
+  /* Alt 按钮 (虹夏) */
+  --vp-button-alt-bg: #fcd34d;
+  --vp-button-alt-hover-bg: #fbbf24;
+  --vp-button-alt-text: #78350f;
+
+  /* 布局调整 */
+  --vp-sidebar-width: 220px; /* 侧边栏变窄 */
+}
+
+.dark {
+  /* 深色模式背景 - 设为透明 */
+  --vp-c-bg: transparent;
+  --vp-c-bg-alt: rgba(30, 30, 32, 0.8);
+  --vp-c-bg-soft: rgba(44, 44, 48, 0.8);
+  
+  /* 深色模式下的品牌色微调 */
+  --vp-c-brand-1: #ff8fab;
+  --vp-c-brand-2: #ff7096;
+  --vp-c-brand-3: #fa527e;
+
+  --vp-home-hero-name-color: #ff8fab;
+  --vp-button-alt-text: #451a03;
+}
+
+/* 全局内容区域透明 */
+.VPContent {
+  background-image: none !important;
+  background-color: transparent !important;
+}
+
+/* 针对文档页面的额外处理，增加一点背景以提高可读性 */
+.VPDoc {
+  /* 给文档内容加一个很淡的背景，防止文字在视频上看不清 */
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  margin-top: 20px;
+  padding: 20px;
+  min-height: 85vh; /* 让卡片更长，填满屏幕 */
+}
+
+.dark .VPDoc {
+  background-color: rgba(30, 30, 32, 0.5);
+}
+
+/* 侧边栏透明化 */
+.VPSidebar {
+  background-color: rgba(255, 255, 255, 0.8) !important; /* 稍微不那么透明，减少重叠感 */
+  backdrop-filter: blur(12px);
+  border-right: 1px solid rgba(0,0,0,0.05);
+}
+
+.dark .VPSidebar {
+  background-color: rgba(30, 30, 32, 0.8) !important;
+  border-right: 1px solid rgba(255,255,255,0.05);
+}
+
+/* 导航栏透明化 */
+.VPNav {
+  background-color: rgba(255, 255, 255, 0.8) !important; /* 稍微不那么透明 */
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  z-index: 50; /* 确保在最上层 */
+}
+
+.dark .VPNav {
+  background-color: rgba(30, 30, 32, 0.8) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+/* Hero 区域样式增强 */
+.VPHero .name {
+  font-weight: 900;
+  letter-spacing: -1px;
+  filter: none;
+  color: var(--vp-home-hero-name-color);
+  text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.VPHero .text {
+  opacity: 1;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--vp-c-text-1);
+}
+
+.VPHero .tagline {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  opacity: 0.9;
+  max-width: 600px;
+  margin: 0 auto;
+  font-weight: 500;
+  color: var(--vp-c-text-2);
+}
+
+/* 按钮样式 */
+.VPButton.brand {
+  border-radius: 8px;
+  box-shadow: 4px 4px 0px rgba(250, 114, 152, 0.3);
+  transition: all 0.2s ease;
+  font-weight: 600;
+}
+
+.VPButton.brand:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px rgba(250, 114, 152, 0.4);
+}
+
+.VPButton.alt {
+  border-radius: 8px;
+  background-color: #fcd34d;
+  border: 2px solid #fcd34d;
+  color: #78350f;
+  box-shadow: 4px 4px 0px rgba(251, 191, 36, 0.4);
+  transition: all 0.2s ease;
+  font-weight: 600;
+}
+
+.VPButton.alt:hover {
+  background-color: #fbbf24;
+  border-color: #fbbf24;
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px rgba(251, 191, 36, 0.5);
+}
+
+/* Feature 卡片 - 扁平化卡片设计 */
+.VPFeature {
+  /* 平时：黄色主题 (虹夏) - 强制覆盖 */
+  background-color: rgba(252, 211, 77, 0.15) !important;
+  border: 2px solid #fcd34d !important;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(10px);
+}
+
+.VPFeature:hover {
+  /* 悬浮：粉色主题 (波奇) - 强制覆盖 */
+  border-color: #fa7298 !important;
+  background-color: rgba(250, 114, 152, 0.2) !important;
+  transform: translateY(-4px);
+  box-shadow: 8px 8px 0px rgba(250, 114, 152, 0.4) !important;
+}
+
+/* 调整 Feature 图标大小 */
+.VPFeature .icon {
+  font-size: 2.5rem;
+  background-color: transparent;
+}
+
+/* 移动端适配微调 */
+@media (max-width: 640px) {
+  .VPHero .name {
+    font-size: 2.5rem;
+  }
+}
+
+/* 窄屏（<960px）：隐藏顶部一排链接/社交（包含"..."溢出按钮），只保留右上角菜单按钮 */
+@media (max-width: 959px) {
+  .VPNavBarMenu,
+  .VPNavBarSocialLinks {
+    display: none !important;
+  }
+
+  /* 隐藏默认汉堡按钮（它在 768~959 本来就不支持弹层），改用我们自己的按钮 */
+  .VPNavBarHamburger {
+    display: none !important;
+  }
+
+  .vp-custom-menu-button {
+    display: flex !important;
+  }
+}
+
+@media (min-width: 960px) {
+  .vp-custom-menu-button,
+  .vp-custom-menu-backdrop,
+  .vp-custom-menu-panel {
+    display: none !important;
+  }
+}
+
+/* 右上角自定义菜单按钮（窄屏可见） */
+.vp-custom-menu-button {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: var(--vp-nav-height);
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--vp-c-text-1);
+}
+
+.vp-custom-menu-button:active {
+  transform: scale(0.98);
+}
+
+.vp-custom-menu-icon {
+  position: relative;
+  width: 18px;
+  height: 14px;
+}
+
+.vp-custom-menu-icon span {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: currentColor;
+  border-radius: 2px;
+}
+
+.vp-custom-menu-icon span:nth-child(1) { top: 0; }
+.vp-custom-menu-icon span:nth-child(2) { top: 6px; }
+.vp-custom-menu-icon span:nth-child(3) { top: 12px; }
+
+/* 自定义菜单弹层 */
+.vp-custom-menu-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 75;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.vp-custom-menu-panel {
+  position: fixed;
+  top: var(--vp-nav-height);
+  right: 12px;
+  left: 12px;
+  z-index: 80;
+  border-radius: 14px;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 18px 56px rgba(0, 0, 0, 0.18);
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.dark .vp-custom-menu-panel {
+  background: rgba(30, 30, 32, 0.92);
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+.vp-custom-menu-panel a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 12px;
+  border-radius: 10px;
+  color: var(--vp-c-text-1);
+  text-decoration: none;
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.vp-custom-menu-panel a::after {
+  content: '›';
+  opacity: 0.55;
+  font-weight: 800;
+}
+
+.vp-custom-menu-panel a:hover {
+  background: rgba(252, 211, 77, 0.18);
+}
+
+.dark .vp-custom-menu-panel a:hover {
+  background: rgba(252, 211, 77, 0.12);
+}
+
+.vp-custom-menu-section-title {
+  margin: 12px 0 8px;
+  padding: 0 12px;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  opacity: 0.75;
+  text-transform: uppercase;
+}
+
+.vp-custom-menu-panel nav + .vp-custom-menu-section-title {
+  margin-top: 16px;
+}
+
+/* 右下角悬浮音乐播放器 */
+.vp-music-player {
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+  z-index: 120;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  pointer-events: auto;
+}
+
+.vp-music-player-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: var(--vp-c-bg-alt);
+  backdrop-filter: blur(12px);
+  color: var(--vp-c-text-1);
+  font-weight: 700;
+  line-height: 1;
+  min-width: 140px;
+  cursor: pointer;
+}
+
+.dark .vp-music-player-button {
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+.vp-music-player-button:hover {
+  box-shadow: 0 14px 42px rgba(0, 0, 0, 0.14);
+}
+
+.vp-music-player-title {
+  font-size: 13px;
+  opacity: 0.92;
+}
+
+.vp-music-player-state {
+  font-size: 14px;
+  color: var(--vp-c-brand-1);
+}
+
+.vp-music-player-hint {
+  padding: 6px 10px;
+  border-radius: 12px;
+  background: var(--vp-c-bg-alt);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  backdrop-filter: blur(12px);
+  font-size: 12px;
+  opacity: 0.85;
+}
+
+.dark .vp-music-player-hint {
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+.vp-music-player-expand {
+  align-self: flex-end;
+  padding: 6px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: var(--vp-c-bg-alt);
+  backdrop-filter: blur(12px);
+  color: var(--vp-c-text-2);
+  font-weight: 700;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.dark .vp-music-player-expand {
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+.vp-music-player-panel {
+  width: min(360px, calc(100vw - 28px));
+  padding: 12px;
+  border-radius: 16px;
+  background: var(--vp-c-bg-alt);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 18px 56px rgba(0, 0, 0, 0.18);
+  pointer-events: auto;
+}
+
+/* 收起时不卸载内容：保持 iframe 在 DOM 中以便继续播放 */
+.vp-music-player-panel.is-collapsed {
+  padding: 0;
+  border: 0;
+  box-shadow: none;
+  background: transparent;
+  backdrop-filter: none;
+}
+
+.vp-music-player-embed-wrap.is-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.dark .vp-music-player-panel {
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+.vp-music-player-row {
+  display: flex;
+  gap: 8px;
+}
+
+.vp-music-player-ctl {
+  flex: 1;
+  padding: 10px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: rgba(252, 211, 77, 0.12);
+  color: var(--vp-c-text-1);
+  font-weight: 800;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.dark .vp-music-player-ctl {
+  border-color: rgba(255, 255, 255, 0.06);
+  background: rgba(252, 211, 77, 0.10);
+}
+
+.vp-music-player-ctl:hover {
+  background: rgba(250, 114, 152, 0.14);
+}
+
+.vp-music-player-progress {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 10px;
+}
+
+.vp-music-player-time {
+  font-size: 12px;
+  color: var(--vp-c-text-2);
+  font-weight: 700;
+}
+
+.vp-music-player-volume {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 10px;
+}
+
+.vp-music-player-label {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--vp-c-text-2);
+}
+
+.vp-music-player-range {
+  width: 100%;
+  accent-color: var(--vp-c-brand-1);
+}
+
+.vp-music-player-list {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.vp-music-player-track {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: transparent;
+  color: var(--vp-c-text-1);
+  cursor: pointer;
+  font-weight: 700;
+  text-align: left;
+}
+
+.dark .vp-music-player-track {
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+.vp-music-player-track[aria-current="true"] {
+  background: rgba(250, 114, 152, 0.14);
+  border-color: rgba(250, 114, 152, 0.35);
+}
+
+.vp-music-player-track:hover {
+  background: rgba(252, 211, 77, 0.12);
+}
+
+.vp-music-player-track-title {
+  font-size: 13px;
+  opacity: 0.92;
+}
+
+.vp-music-player-track-mark {
+  font-size: 12px;
+  color: var(--vp-c-brand-1);
+  font-weight: 900;
+  opacity: 0.85;
+}
+
+/* 站内歌单列表（跳转网易云播放） */
+.vp-playlist {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.vp-playlist-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.vp-playlist-title {
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--vp-c-text-1);
+}
+
+.vp-playlist-open {
+  font-weight: 800;
+  color: var(--vp-c-brand-1);
+  text-decoration: none;
+}
+
+.vp-playlist-open:hover {
+  text-decoration: underline;
+}
+
+.vp-playlist-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.vp-playlist-item {
+  display: grid;
+  grid-template-columns: 34px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: var(--vp-c-bg-alt);
+  backdrop-filter: blur(12px);
+  color: var(--vp-c-text-1);
+  text-decoration: none;
+}
+
+.dark .vp-playlist-item {
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+.vp-playlist-item:hover {
+  background: rgba(252, 211, 77, 0.12);
+}
+
+.vp-playlist-index {
+  font-weight: 900;
+  color: var(--vp-c-text-2);
+}
+
+.vp-playlist-main {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.vp-playlist-song {
+  font-weight: 900;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vp-playlist-meta {
+  font-size: 12px;
+  color: var(--vp-c-text-2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vp-playlist-dur {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--vp-c-text-2);
+}
+
+.vp-playlist-empty {
+  padding: 12px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: var(--vp-c-bg-alt);
+  backdrop-filter: blur(12px);
+  color: var(--vp-c-text-2);
+  font-weight: 700;
+}
+
+.dark .vp-playlist-empty {
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+.vp-music-player-embed {
+  display: block;
+  width: 100%;
+  height: min(430px, 60vh);
+  border: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  background: transparent;
+  pointer-events: auto;
+}
+
