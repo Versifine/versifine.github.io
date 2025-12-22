@@ -15,6 +15,11 @@ const isMusicPlaying = ref(false)
 const musicError = ref(false)
 const isMusicExpanded = ref(false)
 
+const neteaseFrameKey = ref(0)
+const neteaseLoaded = ref(false)
+const neteaseRetryCount = ref(0)
+const neteaseRetryTimer = ref(null)
+
 const currentIndex = ref(0)
 const currentTime = ref(0)
 const duration = ref(0)
@@ -52,6 +57,38 @@ const neteaseEmbedUrl = computed(() => {
   const height = Number.isFinite(cfg?.height) ? cfg.height : 430
   return `https://music.163.com/outchain/player?type=${encodeURIComponent(type)}&id=${encodeURIComponent(id)}&auto=${encodeURIComponent(auto)}&height=${encodeURIComponent(height)}`
 })
+
+const clearNeteaseRetryTimer = () => {
+  if (neteaseRetryTimer.value) {
+    clearTimeout(neteaseRetryTimer.value)
+    neteaseRetryTimer.value = null
+  }
+}
+
+const onNeteaseIframeLoad = () => {
+  neteaseLoaded.value = true
+  clearNeteaseRetryTimer()
+}
+
+const scheduleNeteaseRetry = () => {
+  if (neteaseLoaded.value) return
+  if (neteaseRetryCount.value >= 2) return
+  if (neteaseRetryTimer.value) return
+
+  // 网络卡顿时，首次展开可能加载不出来；延迟重试几次。
+  neteaseRetryTimer.value = setTimeout(() => {
+    neteaseRetryTimer.value = null
+    if (neteaseLoaded.value) return
+    if (!isMusicExpanded.value) return
+    if (neteaseRetryCount.value >= 2) return
+
+    neteaseRetryCount.value += 1
+    neteaseFrameKey.value += 1
+
+    // 若仍未加载成功，继续排队下一次重试
+    scheduleNeteaseRetry()
+  }, 5000)
+}
 
 
 const currentTrack = computed(() => tracks.value[currentIndex.value])
@@ -213,6 +250,21 @@ watch(
   }
 )
 
+const toggleNeteaseExpand = () => {
+  const next = !isMusicExpanded.value
+  isMusicExpanded.value = next
+  if (next) scheduleNeteaseRetry()
+}
+
+watch(
+  () => neteaseEmbedUrl.value,
+  () => {
+    neteaseLoaded.value = false
+    neteaseRetryCount.value = 0
+    clearNeteaseRetryTimer()
+  }
+)
+
 onMounted(() => {
   // 移动端部分浏览器会拦截 autoplay，即使 muted 也可能失败。
   // 这里在首次用户交互后再补一次播放尝试，避免只显示静态首帧。
@@ -276,7 +328,7 @@ onMounted(() => {
         type="button"
         class="vp-music-player-button"
         :aria-label="isMusicExpanded ? '收起歌单' : '展开歌单'"
-        @click="isMusicExpanded = !isMusicExpanded"
+        @click="toggleNeteaseExpand"
       >
         <span class="vp-music-player-title">{{ theme.musicPlayer.title || '网易云歌单' }}</span>
         <span class="vp-music-player-state" aria-hidden="true">{{ isMusicExpanded ? '▾' : '▸' }}</span>
@@ -291,8 +343,10 @@ onMounted(() => {
         >
           <iframe
             v-if="neteaseEmbedUrl"
+            :key="neteaseFrameKey"
             class="vp-music-player-embed"
             :src="neteaseEmbedUrl"
+            @load="onNeteaseIframeLoad"
             width="100%"
             height="430"
             frameborder="0"
