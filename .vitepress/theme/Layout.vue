@@ -1,7 +1,7 @@
 <script setup>
 import DefaultTheme from 'vitepress/theme'
 import { useData, useRoute } from 'vitepress'
-import { computed, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 
 const { Layout } = DefaultTheme
 
@@ -52,6 +52,7 @@ const neteaseEmbedUrl = computed(() => {
   const height = Number.isFinite(cfg?.height) ? cfg.height : 430
   return `https://music.163.com/outchain/player?type=${encodeURIComponent(type)}&id=${encodeURIComponent(id)}&auto=${encodeURIComponent(auto)}&height=${encodeURIComponent(height)}`
 })
+
 
 const currentTrack = computed(() => tracks.value[currentIndex.value])
 
@@ -211,6 +212,33 @@ watch(
     closeCustomMenu()
   }
 )
+
+onMounted(() => {
+  // 移动端部分浏览器会拦截 autoplay，即使 muted 也可能失败。
+  // 这里在首次用户交互后再补一次播放尝试，避免只显示静态首帧。
+  const video = document.getElementById('video-bg')
+  if (!(video instanceof HTMLVideoElement)) return
+
+  video.muted = true
+  video.playsInline = true
+  video.loop = true
+
+  const tryPlay = () => {
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    video.play().catch(() => {})
+  }
+
+  tryPlay()
+
+  const resumeOnce = () => {
+    tryPlay()
+    window.removeEventListener('touchstart', resumeOnce)
+    window.removeEventListener('click', resumeOnce)
+  }
+
+  window.addEventListener('touchstart', resumeOnce, { passive: true, once: true })
+  window.addEventListener('click', resumeOnce, { passive: true, once: true })
+})
 </script>
 
 <template>
@@ -256,7 +284,11 @@ watch(
 
       <div class="vp-music-player-panel" :class="{ 'is-collapsed': !isMusicExpanded }">
         <div class="vp-music-player-label">网易云外链播放器</div>
-        <div class="vp-music-player-embed-wrap" :class="{ 'is-hidden': !isMusicExpanded }" aria-hidden="!isMusicExpanded">
+        <div
+          class="vp-music-player-embed-wrap"
+          :class="{ 'is-hidden': !isMusicExpanded }"
+          :aria-hidden="!isMusicExpanded"
+        >
           <iframe
             v-if="neteaseEmbedUrl"
             class="vp-music-player-embed"
