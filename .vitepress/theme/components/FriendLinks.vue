@@ -24,6 +24,13 @@ const onToggleKeydown = (e) => {
 
 // key: link -> current icon url
 const iconSrcByLink = shallowReactive({})
+// key: link -> fallback stage
+// -1: using custom avatar
+//  0: origin /favicon.ico
+//  1: DuckDuckGo icon service
+//  2: icon.horse service
+//  3: Google s2 favicon service
+const iconStageByLink = shallowReactive({})
 
 const getHostname = (url) => {
   try {
@@ -42,6 +49,18 @@ const primaryIcon = (url) => {
   }
 }
 
+const ddgIcon = (url) => {
+  const host = getHostname(url)
+  if (!host) return ''
+  return `https://icons.duckduckgo.com/ip3/${encodeURIComponent(host)}.ico`
+}
+
+const iconHorse = (url) => {
+  const host = getHostname(url)
+  if (!host) return ''
+  return `https://icon.horse/icon/${encodeURIComponent(host)}`
+}
+
 const fallbackIcon = (url) => {
   const host = getHostname(url)
   if (!host) return ''
@@ -49,19 +68,49 @@ const fallbackIcon = (url) => {
   return `https://www.google.com/s2/favicons?domain=${encodeURIComponent(host)}&sz=64`
 }
 
+const iconByStage = (url, stage) => {
+  if (stage === 0) return primaryIcon(url)
+  if (stage === 1) return ddgIcon(url)
+  if (stage === 2) return iconHorse(url)
+  if (stage === 3) return fallbackIcon(url)
+  return ''
+}
+
 const iconSrc = (item) => {
-  if (item?.avatar) return String(item.avatar)
   const key = String(item?.link || '')
   if (!key) return ''
-  if (!iconSrcByLink[key]) iconSrcByLink[key] = primaryIcon(key)
+
+  if (!iconSrcByLink[key]) {
+    if (item?.avatar) {
+      iconStageByLink[key] = -1
+      iconSrcByLink[key] = String(item.avatar)
+    } else {
+      iconStageByLink[key] = 0
+      iconSrcByLink[key] = iconByStage(key, 0)
+    }
+  }
   return iconSrcByLink[key]
 }
 
 const onIconError = (item) => {
   const key = String(item?.link || '')
   if (!key) return
-  const next = fallbackIcon(key)
-  if (next && iconSrcByLink[key] !== next) iconSrcByLink[key] = next
+
+  const stage = Number.isFinite(iconStageByLink[key]) ? iconStageByLink[key] : 0
+
+  // avatar 失败：回退到站点 favicon
+  if (stage === -1) {
+    iconStageByLink[key] = 0
+    iconSrcByLink[key] = iconByStage(key, 0)
+    return
+  }
+
+  const nextStage = stage + 1
+  const next = iconByStage(key, nextStage)
+  if (!next) return
+  if (iconSrcByLink[key] === next) return
+  iconStageByLink[key] = nextStage
+  iconSrcByLink[key] = next
 }
 </script>
 
