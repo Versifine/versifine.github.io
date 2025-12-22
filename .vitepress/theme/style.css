@@ -645,3 +645,123 @@
   pointer-events: auto;
 }
 
+/* 首页右侧友链：抽屉整体滑入/滑出；点击灰色 tab 文本触发 */
+.vp-friends {
+  position: fixed;
+  top: calc(var(--vp-nav-height) + 18px);
+  right: 0;
+  z-index: 60;
+  pointer-events: auto;
+
+  --vp-friends-handle: 52px;
+  --vp-friends-width: 280px;
+  --vp-friends-radius: 16px;
+  --vp-friends-border: rgba(0, 0, 0, 0.06);
+  --vp-friends-shadow: 0 18px 56px rgba(0, 0, 0, 0.18);
+}
+
+.dark .vp-friends {
+  --vp-friends-border: rgba(255, 255, 255, 0.06);
+}
+
+.vp-friends-drawer {
+  display: block;
+  width: min(var(--vp-friends-width), calc(100vw - 28px));
+  border-radius: var(--vp-friends-radius) 0 0 var(--vp-friends-radius);
+  background: var(--vp-c-bg-alt);
+  border: 1px solid var(--vp-friends-border);
+  border-right: 0;
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  box-shadow: var(--vp-friends-shadow);
+  overflow: hidden;
+
+  transform: translateX(calc(100% - var(--vp-friends-handle)));
+  transition: transform 180ms ease;
+}
+
+.vp-friends.is-open .vp-friends-drawer {
+  transform: translateX(0);
+}
+
+.vp-friends-panel {
+  max-height: calc(100vh - var(--vp-nav-height) - 32px);
+  overflow: auto;
+  padding: 12px;
+}
+
+@media (max-width: 420px) {
+  .vp-friends {
+    --vp-friends-width: 240px;
+  }
+}
+
+.vp-friends-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 900;
+  color: var(--vp-c-text-2);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: -12px -12px 10px -12px;
+  padding: 10px 12px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.vp-friends-title:hover {
+  color: var(--vp-c-text-1);
+}
+
+/* 抽屉收起时：只露出把手宽度，让“友链”字不被裁掉 */
+.vp-friends:not(.is-open) .vp-friends-title {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+}
+
+.vp-friends-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.vp-friend-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 10px;
+  border-radius: 14px;
+  text-decoration: none;
+  color: var(--vp-c-text-1);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.dark .vp-friend-link {
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+.vp-friend-link:hover {
+  background: var(--vp-c-brand-soft);
+}
+
+.vp-friend-avatar {
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  flex: 0 0 22px;
+  background: transparent;
+}
+
+.vp-friend-name {
+  font-weight: 800;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+

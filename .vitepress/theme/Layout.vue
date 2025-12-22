@@ -2,11 +2,14 @@
 import DefaultTheme from 'vitepress/theme'
 import { useData, useRoute } from 'vitepress'
 import { computed, onMounted, ref, watch } from 'vue'
+import FriendLinks from './components/FriendLinks.vue'
 
 const { Layout } = DefaultTheme
 
 const { theme } = useData()
 const route = useRoute()
+
+const isHome = computed(() => route.path === '/' || route.path === '/index' || route.path === '/index.html')
 
 const isCustomMenuOpen = ref(false)
 
@@ -445,6 +448,8 @@ onMounted(() => {
     </div>
     </template>
   </div>
+
+  <FriendLinks v-if="isHome" />
 
   <div v-if="isCustomMenuOpen" class="vp-custom-menu-backdrop" @click="closeCustomMenu"></div>
   <div v-if="isCustomMenuOpen" class="vp-custom-menu-panel">

@@ -7,6 +7,7 @@ import { dirname, resolve } from 'node:path'
 type ThemeConfig = DefaultTheme.Config & {
   musicPlayer?: unknown
   musicPlaylist?: unknown
+  friendLinks?: Array<{ name: string; link: string; avatar?: string }>
 }
 
 const NETEASE_PLAYLIST_ID = '17578209532'
@@ -262,6 +263,14 @@ export default defineConfig({
 
     // 用于站内展示的“完整歌单列表”（点击跳转网易云播放）
     musicPlaylist,
+
+    // 首页友链（用于右侧小侧栏展示）
+    friendLinks: [
+      { name: 'zincs.art', link: 'https://zincs.art' },
+      { name: 'anontokyo114.top', link: 'https://anontokyo114.top' },
+      { name: 'hez2z.github.io', link: 'https://hez2z.github.io' },
+      { name: 'qingke12138.top', link: 'https://www.qingke12138.top' }
+    ],
 
     // 页脚
     footer: {
