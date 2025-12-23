@@ -2,6 +2,11 @@
 
 你好，我是 Versifine。
 
+## Push 计数按钮
+
+<!-- 部署 Cloudflare Worker 后，把 apiBase 改成你的 workers.dev 地址 -->
+<CounterButton label="Push" shared storageKey="global:push" apiBase="https://my-note-site-counter.versifine.workers.dev" />
+
 这个站点用于记录我的学习路径与知识库沉淀：前端、后端/运维、读书与思考。
 
 ## 友链

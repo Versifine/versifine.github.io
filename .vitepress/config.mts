@@ -153,7 +153,14 @@ export default defineConfig({
   head: [
     ['link', { rel: 'icon', type: 'image/jpeg', href: '/logo.jpg' }],
     ['link', { rel: 'shortcut icon', type: 'image/jpeg', href: '/logo.jpg' }],
-    ['link', { rel: 'apple-touch-icon', href: '/logo.jpg' }]
+    ['link', { rel: 'apple-touch-icon', href: '/logo.jpg' }],
+    [
+      'script',
+      {
+        async: '',
+        src: 'https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js'
+      }
+    ]
   ],
 
   // 网页头部配置

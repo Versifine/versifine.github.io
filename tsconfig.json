@@ -22,6 +22,7 @@
     "node_modules",
     ".vitepress/dist",
     ".vitepress/cache",
-    "docs/.vitepress/**"
+    "docs/.vitepress/**",
+    "workers/**"
   ]
 }
