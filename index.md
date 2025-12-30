@@ -3,8 +3,8 @@ layout: home
 
 hero:
   name: "VerSite"
-  text: "Golang & CS DIY"
-  tagline: "跟随 CS DIY 路线，深耕 Golang 后端开发与计算机基础。\n保持好奇，持续生长。"
+  text: "我的个人笔记网站"
+  tagline: "你好，我是Versifine，中国矿业大学的大二计科学生\n学习知识为了我也不知道干什么"
   image:
     src: /logo.jpg
     alt: VerSite Logo

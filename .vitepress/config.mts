@@ -10,7 +10,7 @@ type ThemeConfig = DefaultTheme.Config & {
   friendLinks?: Array<{ name: string; link: string; avatar?: string }>
 }
 
-const NETEASE_PLAYLIST_ID = '17578209532'
+const NETEASE_PLAYLIST_ID = '4992471414'
 const PLAYLIST_CACHE_TTL_MS = 12 * 60 * 60 * 1000
 
 const CACHE_FILE_PATH = resolve(
@@ -74,6 +74,9 @@ const loadNeteasePlaylist = async (playlistId: string) => {
       ? playlist.trackIds.map((x: any) => Number(x?.id)).filter((n: number) => Number.isFinite(n))
       : []
 
+    // 站内展示只需要前 50 首，避免构建慢/请求多
+    const limitedTrackIds = trackIds.slice(0, 50)
+
     const songsById = new Map<number, any>()
     if (Array.isArray(playlist?.tracks)) {
       for (const s of playlist.tracks) {
@@ -82,7 +85,7 @@ const loadNeteasePlaylist = async (playlistId: string) => {
       }
     }
 
-    const missing = trackIds.filter((id) => !songsById.has(id))
+    const missing = limitedTrackIds.filter((id) => !songsById.has(id))
     for (const group of chunk(missing, 100)) {
       const url = `https://music.163.com/api/song/detail?ids=[${group.join(',')}]`
       const data = await fetchJson(url)
@@ -94,7 +97,7 @@ const loadNeteasePlaylist = async (playlistId: string) => {
       }
     }
 
-    const tracks = trackIds
+    const tracks = limitedTrackIds
       .map((id) => {
         const s = songsById.get(id)
         if (!s) return null
@@ -186,7 +189,7 @@ export default defineConfig({
           items: [
             { text: '基础语法', link: '/golang/basics' },
             { text: '并发编程', link: '/golang/concurrency' },
-            { text: 'Web 开发', link: '/golang/web' }
+            { text: 'Web 开发', link: '/golang/web' },
           ]
         }
       ],
@@ -260,9 +263,9 @@ export default defineConfig({
       provider: 'netease',
       title: '博客音乐分享',
       netease: {
-        // 歌单：https://music.163.com/m/playlist?id=17578209532
+        // 歌单：https://music.163.com/playlist?id=4992471414
         type: 0,
-        id: '17578209532',
+        id: '4992471414',
         auto: 0,
         height: 430
       }
