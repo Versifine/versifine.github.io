@@ -7,4 +7,3 @@
 - [基础语法](./basics)
 - [并发编程](./concurrency)
 - [Web 开发](./web)
-- [测试](./ceshi)
