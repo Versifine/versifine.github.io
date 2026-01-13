@@ -144,6 +144,9 @@ try {
 export default defineConfig({
   title: "VerSite",
   description: "Versifine的学习路径与知识库",
+  markdown: {
+    math: true
+  },
   base: (() => {
     const repo = process.env.GITHUB_REPOSITORY?.split('/')[1]
     if (!repo) return '/'
