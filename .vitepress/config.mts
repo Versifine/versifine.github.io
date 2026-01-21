@@ -191,7 +191,13 @@ export default defineConfig({
           text: 'Golang 学习',
           items: [
             { text: '基础语法', link: '/golang/basics' },
-            { text: '并发编程', link: '/golang/concurrency' },
+            { 
+              text: '并发编程', 
+              link: '/golang/concurrency',
+              items: [
+                { text: 'Mutex 深入解析', link: '/golang/mutex-deep-dive' },
+              ]
+            },
             { text: 'Web 开发', link: '/golang/web' },
           ]
         }
@@ -200,8 +206,13 @@ export default defineConfig({
         {
           text: 'CS DIY 路线',
           items: [
-            { text: '计算机组成原理', link: '/csdiy/arch' },
-            { text: 'CMU 15-213', link: '/csdiy/cmu-15-213' },
+            { 
+              text: '计算机组成原理', 
+              link: '/csdiy/arch',
+              items: [
+                { text: 'CMU 15-213', link: '/csdiy/cmu-15-213' },
+              ]
+            },
             { text: '操作系统', link: '/csdiy/os' },
             { text: '计算机网络', link: '/csdiy/network' },
             { text: '分布式系统', link: '/csdiy/distributed' }
