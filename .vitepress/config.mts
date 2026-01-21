@@ -202,7 +202,13 @@ export default defineConfig({
                 { text: '同步异步悖论', link: '/golang/sync-async-paradox' },
               ]
             },
-            { text: 'Web 开发', link: '/golang/web' },
+            { 
+              text: 'Web 开发', 
+              link: '/golang/web',
+              items: [
+                { text: 'Gin 框架源码解析', link: '/golang/gin-internals' },
+              ]
+            },
           ]
         }
       ],
