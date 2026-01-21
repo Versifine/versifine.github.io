@@ -196,6 +196,9 @@ export default defineConfig({
               link: '/golang/concurrency',
               items: [
                 { text: 'Mutex 深入解析', link: '/golang/mutex-deep-dive' },
+                { text: 'Channel 死锁实战', link: '/golang/channel-deadlock' },
+                { text: 'Goroutine 泄漏避坑', link: '/golang/goroutine-leak' },
+                { text: 'Runtime 死锁检测', link: '/golang/runtime-deadlock' },
               ]
             },
             { text: 'Web 开发', link: '/golang/web' },
