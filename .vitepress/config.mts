@@ -199,6 +199,7 @@ export default defineConfig({
                 { text: 'Channel 死锁实战', link: '/golang/channel-deadlock' },
                 { text: 'Goroutine 泄漏避坑', link: '/golang/goroutine-leak' },
                 { text: 'Runtime 死锁检测', link: '/golang/runtime-deadlock' },
+                { text: '同步异步悖论', link: '/golang/sync-async-paradox' },
               ]
             },
             { text: 'Web 开发', link: '/golang/web' },

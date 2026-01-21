@@ -7,3 +7,4 @@
 - [Channel 死锁实战：从"死锁厨房"看解耦设计](./channel-deadlock)
 - [Goroutine 泄漏避坑指南](./goroutine-leak)
 - [Runtime 死锁检测机制详解](./runtime-deadlock)
+- [深度思考：硬件异步 vs 软件同步的悖论](./sync-async-paradox)
