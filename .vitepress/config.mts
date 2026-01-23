@@ -208,6 +208,7 @@ export default defineConfig({
               items: [
                 { text: 'Gin 框架源码解析', link: '/golang/gin-internals' },
                 { text: 'Web 架构与依赖注入', link: '/golang/web-architecture' },
+                { text: 'GORM 持久化实战', link: '/golang/gorm-migration' },
               ]
             },
           ]
